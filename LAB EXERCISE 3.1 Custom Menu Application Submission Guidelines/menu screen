@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Show a single dish on the menu.
+/// A single dish on the menu.
 class CurryDish {
   const CurryDish({
     required this.name,
@@ -86,23 +86,37 @@ class MenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Curry House Menu'),
-        centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Colors.white,
-        leading: const Icon(Icons.restaurant_menu),
+    // The theme lives here so main.dart can stay untouched.
+    return Theme(
+      data: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFFE65100),
+          primary: const Color(0xFFBF360C),
+          secondary: const Color(0xFFFFB300),
+        ),
+        scaffoldBackgroundColor: const Color(0xFFFFF8E1),
       ),
-      body: ListView(
-        padding: const EdgeInsets.only(bottom: 24),
-        children: [
-          const _HeaderBanner(),
-          for (final entry in _menu.entries) ...[
-            _SectionTitle(title: entry.key),
-            for (final dish in entry.value) _DishCard(dish: dish),
-          ],
-        ],
+      child: Builder(
+        builder: (context) => Scaffold(
+          appBar: AppBar(
+            title: const Text('Curry House Menu'),
+            centerTitle: true,
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            foregroundColor: Colors.white,
+            leading: const Icon(Icons.restaurant_menu),
+          ),
+          body: ListView(
+            padding: const EdgeInsets.only(bottom: 24),
+            children: [
+              const _HeaderBanner(),
+              for (final entry in _menu.entries) ...[
+                _SectionTitle(title: entry.key),
+                for (final dish in entry.value) _DishCard(dish: dish),
+              ],
+            ],
+          ),
+        ),
       ),
     );
   }
