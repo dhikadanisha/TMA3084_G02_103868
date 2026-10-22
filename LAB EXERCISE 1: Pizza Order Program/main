@@ -1,1 +1,50 @@
+import 'dart:io';
 
+void main() {
+  String again = 'yes';
+  while (again == 'yes') {
+  
+  print('===== PIZZA ORDER CALCULATOR =====');
+  print('Small Pizza : USD 5');
+  print('Medium Pizza : USD 7');
+  print('Large Pizza : USD 10');
+
+  print('\nChoose your pizza size (small, medium, large):');
+  String? size = stdin.readLineSync();
+
+  print('You selected: $size');
+  print('\nEnter pizza quantity:');
+  int quantity = int.parse(stdin.readLineSync()!);
+
+  print('You ordered $quantity $size pizza(s).');
+
+  int price = 0;
+
+  switch (size?.toLowerCase()) {
+    case 'small':
+      price = 5;
+      break;
+    case 'medium':
+      price = 7;
+      break;
+    case 'large':
+      price = 10;
+      break;
+    default:
+      print('Invalid pizza size! Please try again.');
+      continue;
+  }
+
+  int total = price * quantity;
+
+  print('\n===== ORDER SUMMARY =====');
+  print('Pizza Size: $size');
+  print('Quantity: $quantity');
+  print('Total Price: USD $total');
+
+  print('\nWould you like to order again? (yes/no)');
+  again = stdin.readLineSync()?.trim().toLowerCase() ?? 'no';
+  }
+
+  print('\nThank you for ordering! Have a great day!');
+}
